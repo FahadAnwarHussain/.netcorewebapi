@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApiAspNetCore.Database;
+using WebApiAspNetCore.Models;
 
 namespace WebApiAspNetCore
 {
@@ -26,6 +29,8 @@ namespace WebApiAspNetCore
         {
 
             services.AddControllers();
+            var connectionStrnig = Configuration["DbConnectionStrings"];
+            services.AddDbContext<accountsDbContext>(options => options.UseSqlServer(connectionStrnig));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
